@@ -1,0 +1,37 @@
+doctype html
+html(lang='en')
+    header
+      meta(charset="utf-8")
+      title Compra Facil
+      meta(content="width=device-width, initial-scale=1.0", name="viewport")
+      meta(content="Free HTML Templates", name="keywords")
+      meta(content="Free HTML Templates", name="description")
+      link(href="../public/css/style.css", rel="stylesheet")
+      link(rel="preconnect", href="https://fonts.gstatic.com")
+      link(href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap", rel="stylesheet")
+      link(href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css", rel="stylesheet")
+      link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
+      link(href="https://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600,700,800&display=swap", rel="stylesheet")
+    body
+      h1.text-primary.mb-4 Inicia Sesión o Registrate!
+        .mx-auto(style="width: 100%; max-width: 600px;")
+          .input-group
+            .container.text-center
+              form(action='/newjourney', method='POST')
+                              div.form-group
+                                  label.formGroupExampleInput Nombre:
+                                  input(type="text", placeholder="Ingrese su nombre", required=true, name='name', value='').form-control
+                                  label.formGroupExampleInput Nombre del Journey:
+                                  input(type="text", placeholder="Ingrese el nombre", required=true, name='journeyName', value='').form-control
+                                  h1 Stats actuales:
+                                  label.formGroupExampleInput Peso Corporal:
+                                  input(type="text", placeholder="Ingrese su nombre", required=true, name='name', value='').form-control
+                                  label.formGroupExampleInput Porcentaje de grasa corporal:
+                                  input(type="text", placeholder="Ingrese el nombre", required=true, name='journeyName', value='').form-control
+                                  label.formGroupExampleInput Nivel de actividad diario:
+                                  input(type="text", placeholder="Ingrese el nombre", required=true, name='journeyName', value='').form-control
+                                  label.formGroupExampleInput Fecha de Inicio:
+                                  input(type="text", placeholder="Ingrese el nombre", required=true, name='journeyName', value='').form-control
+                                  button.mt-3.btn.btn-primary(type='submit') Ingresar
+    footer
+      script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js")     
