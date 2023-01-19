@@ -6,6 +6,4 @@ const { show_landing, create_journey } = require('../controllers/index_controlle
 router.get('/', show_landing);
 router.post('/newjourney', create_journey);
 
-
-
 module.exports = router
