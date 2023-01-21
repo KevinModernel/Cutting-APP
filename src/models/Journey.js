@@ -1,30 +1,27 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../database/database.js');
-const { DailyProgress } = require('./DailyProgress.js');
-const { Goal } = require('./Goal.js');
+import { DataTypes } from 'sequelize'
+import {sequelize} from '../database/database.js'
+import { DailyProgress } from './DailyProgress.js'
+import { Goal } from './Goal.js'
 
-const Journey = sequelize.define('journeys', {
+export const Journey = sequelize.define('journeys', {
 	id: {
 		type: DataTypes.INTEGER,
 		primaryKey: true,
 		autoIncrement: true,
 	},
-	name: {
+	journeyName: {
 		type: DataTypes.STRING
 	},
-	bw: {
+	bodyWeight: {
 		type: DataTypes.FLOAT
 	},
-	bf: {
+	bodyFat: {
 		type: DataTypes.FLOAT
-	},
-	dailyAct: {
-		type: DataTypes.STRING
 	},
 	startDate: {
 		type: DataTypes.DATEONLY
 	},
-})
+}, {timestamps: false});
 
 Journey.hasMany(DailyProgress, {
 	foreignKey: 'journeyId',
@@ -40,5 +37,3 @@ Journey.hasOne(Goal, {
 	foreignKey: 'journeyId',
 	target: 'id'
 })
-
-module.exports = Journey

@@ -14,24 +14,25 @@ html(lang='en')
       link(href="https://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600,700,800&display=swap", rel="stylesheet")
     body
       h1.text-primary.mb-4 Inicia Sesión o Registrate!
-        .mx-auto(style="width: 100%; max-width: 600px;")
-          .input-group
-            .container.text-center
-              form(action='/newjourney', method='POST')
-                              div.form-group
-                                  label.formGroupExampleInput Nombre:
-                                  input(type="text", placeholder="Ingrese su nombre", required=true, name='name', value='').form-control
-                                  label.formGroupExampleInput Nombre del Journey:
-                                  input(type="text", placeholder="Ingrese el nombre", required=true, name='journeyName', value='').form-control
-                                  h1 Stats actuales:
-                                  label.formGroupExampleInput Peso Corporal:
-                                  input(type="text", placeholder="Ingrese su nombre", required=true, name='name', value='').form-control
-                                  label.formGroupExampleInput Porcentaje de grasa corporal:
-                                  input(type="text", placeholder="Ingrese el nombre", required=true, name='journeyName', value='').form-control
-                                  label.formGroupExampleInput Nivel de actividad diario:
-                                  input(type="text", placeholder="Ingrese el nombre", required=true, name='journeyName', value='').form-control
-                                  label.formGroupExampleInput Fecha de Inicio:
-                                  input(type="text", placeholder="Ingrese el nombre", required=true, name='journeyName', value='').form-control
-                                  button.mt-3.btn.btn-primary(type='submit') Ingresar
+
+      form(action='/newjourney', method='POST')
+        label Nombre del Journey:
+        br
+        input(type="text", placeholder="Ingrese el nombre", required=true, name='journeyName', value='')
+        br
+        label Peso Corporal:
+        br
+        input(type="text", placeholder="Ingrese su BW", required=true, name='bodyWeight', value='')
+        br
+        label Porcentaje de grasa corporal:
+        br
+        input(type="number", placeholder="Ingrese su BF %", required=true, name='bodyFat', value='')
+        br
+        label Fecha de Inicio:
+        br
+        input(type="date", placeholder="Ingrese fecha de inicio", required=true, name='startDate', value='')
+        input(type="submit", value="Submit")
+
+
     footer
       script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js")     

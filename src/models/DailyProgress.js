@@ -1,18 +1,18 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../database/database.js');
+import { DataTypes } from 'sequelize'
+import {sequelize} from '../database/database.js'
 
-const DailyProgress = sequelize.define('dailyProgresses', {
+export const DailyProgress = sequelize.define('dailyProgresses', {
 	id: {
 		type: DataTypes.INTEGER,
 		primaryKey: true,
 		autoIncrement: true,
 	},
 	date: {
-		type: DataTypes.DATEONLY
+		type: DataTypes.DATEONLY,
+		allowNull: false
 	},
 	weight: {
-		type: DataTypes.FLOAT
+		type: DataTypes.FLOAT,
+		allowNull: false
 	}
 })
-
-module.exports = {DailyProgress}

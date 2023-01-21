@@ -1,6 +1,6 @@
-const Sequelize = require('sequelize');
+import Sequelize from 'sequelize'
 
-const sequelize = new Sequelize(
+export const sequelize = new Sequelize(
 	'cuttingapp',
 	'postgres',
 	'password',
@@ -10,4 +10,3 @@ const sequelize = new Sequelize(
 	}
 );
 
-module.exports = sequelize

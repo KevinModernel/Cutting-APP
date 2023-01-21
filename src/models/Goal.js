@@ -1,21 +1,22 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../database/database.js');
+import { DataTypes } from 'sequelize'
+import { sequelize } from '../database/database.js'
 
-const Goal = sequelize.define('goals', {
+export const Goal = sequelize.define('goals', {
 	id: {
 		type: DataTypes.INTEGER,
 		primaryKey: true,
 		autoIncrement: true,
 	},
 	bw: {
-		type: DataTypes.FLOAT
+		type: DataTypes.FLOAT,
+		allowNull: false
 	},
 	bf: {
-		type: DataTypes.FLOAT
+		type: DataTypes.FLOAT,
+		allowNull: false
 	},	
 	endDate: {
-		type: DataTypes.DATEONLY
+		type: DataTypes.DATEONLY,
+		allowNull: false
 	},
 })
-
-module.exports = {Goal}

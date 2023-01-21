@@ -1,9 +1,10 @@
-const express = require('express');
+import express from 'express'
 const router = express.Router();
-const { show_landing, create_journey } = require('../controllers/index_controllers.js');
+import {show_landing, create_journey, show_journey} from '../controllers/index_controllers.js'
 
 // Routes "/"
 router.get('/', show_landing);
 router.post('/newjourney', create_journey);
+router.get('/showjourney', show_journey)
 
-module.exports = router
+export default router

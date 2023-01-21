@@ -1,7 +1,9 @@
-const sequelize = require('./src/database/database.js');
-require('dotenv').config();
-const app = require('./app.js');
-const Journey = require('./src/models/Journey.js');
+import { sequelize } from './src/database/database.js'
+//import .env;
+import app from './app.js'
+import {Journey} from './src/models/Journey.js'
+import {Goal} from './src/models/Goal.js'
+import {DailyProgress} from './src/models/DailyProgress.js'
 
 // innitialize Express Server
 const PORT = process.env.PORT || 3000;
@@ -15,7 +17,7 @@ try{
 // Model Sync
 async function main() {
 	try{
-		await sequelize.sync({force: false});
+		await sequelize.sync({force: true});
 		// await sequelize.authenticate(); // DB Ok
 		console.log('Connection has been established successfully.');
 	} catch (e) {
