@@ -1,6 +1,6 @@
 doctype html
 html(lang='en')
-    header
+    head
       meta(charset="utf-8")
       title Cutting Weigth
       meta(content="width=device-width, initial-scale=1.0", name="viewport")
@@ -12,6 +12,7 @@ html(lang='en')
       link(href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css", rel="stylesheet")
       link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
       link(href="https://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600,700,800&display=swap", rel="stylesheet")
+    
     body
       h1.text-primary.mb-4 Panel de #{journey.journeyName}
       h2.text-primary.mb-4 id journey: #{journey.id}
@@ -42,11 +43,14 @@ html(lang='en')
             th Peso Objetivo
           each day in dailyProgress
             tr
-              td #{day.date}
-              td #{day.weight}
+              td(id=`X${day.id}`) #{day.date}
+              td(id=`Y${day.id}`) #{day.weight}
               td 309 million
               td English
               td Peso inicial - dailyLoss*N
+
+        h2 Grafico:
+        #tester(style="width:600px;height:250px;")
 
       if goal
         h2 Final Goals:
@@ -87,7 +91,61 @@ html(lang='en')
           input(type="number", placeholder="foreign key", required=true, name='journeyId', value=`${journey.id}`)
           input(type="submit", value="Submit")
 
-
-
     footer
-      script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js")     
+      script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js")   
+      script(src="https://cdn.plot.ly/plotly-2.17.1.min.js")
+      script.
+        (function (dailyProgress) {
+          TESTER = document.getElementById('tester');
+          let x = [];
+          let y = [];
+          let i = 1;
+          let newX;
+          let newY;
+
+          while (document.getElementById(`X${i}`)) {
+            newX = document.getElementById(`X${i}`).innerText
+            //console.log(newX);
+            newY = document.getElementById(`Y${i}`).innerText
+            //console.log(newY);
+            x.push(newX);
+            y.push(newY);            
+            i += 1;
+          }
+
+          console.log(x)
+
+          let firstPlotTrace = {
+            x,
+            y,
+            name: 'yaxis data'
+          }
+
+          let secondPlotTrace = {
+            x: ['2023-01-06', '2023-01-07', '2023-01-08', '2023-01-09', '2023-01-10', '2023-01-11'],
+            y: [75, 74.9, 74.8, 74.7, 74.6, 74.5],
+          }
+
+          let layout = {
+            title: 'Double Plot Title',
+            height: 400,
+            width: 400,
+            yaxis: {title: 'Simple Contour Plot Axis'},
+            yaxis2: {title: 'Line and Scatter Plot Axis'}
+          };
+
+
+          let plotData = [firstPlotTrace, secondPlotTrace];
+
+          Plotly.newPlot(TESTER, plotData, layout);
+
+          //- Plotly.newPlot( TESTER, [{
+          //-   x,
+          //-   y,}], 
+          //-   {
+          //-     margin: { t: 0 } 
+          //-   } 
+          //- );  
+
+          console.log("main js");
+        })();
