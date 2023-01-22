@@ -14,5 +14,4 @@ app.use('/', index_router);
 app.set('views', './src/views');
 app.set('view engine', 'pug');
 
-
 export default app
