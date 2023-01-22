@@ -1,6 +1,7 @@
 import { DataTypes } from 'sequelize'
 import { sequelize } from '../database/database.js'
 
+
 export const Goal = sequelize.define('goals', {
 	id: {
 		type: DataTypes.INTEGER,
@@ -19,4 +20,4 @@ export const Goal = sequelize.define('goals', {
 		type: DataTypes.DATEONLY,
 		allowNull: false
 	},
-})
+}, {timestamps: false})
