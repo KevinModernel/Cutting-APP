@@ -17,7 +17,7 @@ try{
 // Model Sync
 async function main() {
 	try{
-		await sequelize.sync({force: true});
+		await sequelize.sync({force: false});
 		// await sequelize.authenticate(); // DB Ok
 		console.log('Connection has been established successfully.');
 	} catch (e) {
