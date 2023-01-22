@@ -1,0 +1,93 @@
+doctype html
+html(lang='en')
+    header
+      meta(charset="utf-8")
+      title Cutting Weigth
+      meta(content="width=device-width, initial-scale=1.0", name="viewport")
+      meta(content="Free HTML Templates", name="keywords")
+      meta(content="Free HTML Templates", name="description")
+      link(href="../public/css/style.css", rel="stylesheet")
+      link(rel="preconnect", href="https://fonts.gstatic.com")
+      link(href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap", rel="stylesheet")
+      link(href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css", rel="stylesheet")
+      link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
+      link(href="https://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600,700,800&display=swap", rel="stylesheet")
+    body
+      h1.text-primary.mb-4 Panel de #{journey.journeyName}
+      h2.text-primary.mb-4 id journey: #{journey.id}
+
+      h2 Ingresar Fecha / Peso:
+      form(action='/newmeasure', method='POST')
+        label Fecha:
+        br
+        input(type="date", placeholder="Ingrese el nombre", required=true, name='date', value='')
+        br
+        label Peso:
+        br
+        input(type="text", placeholder="ingresar peso", required=true, name='weight', value='')
+        label Foreign key:
+        br
+        input(type="number", placeholder="foreign key", required=true, name='journeyId', value=`${journey.id}`)        
+        input(type="submit", value="Submit")
+
+      if dailyProgress
+        h2 Tabla seguimiento diario:
+        table
+          colgroup.columns(span="5")
+          tr
+            th Fecha
+            th Peso
+            th Delta Diario
+            th Delta Semanal
+            th Peso Objetivo
+          each day in dailyProgress
+            tr
+              td #{day.date}
+              td #{day.weight}
+              td 309 million
+              td English
+              td Peso inicial - dailyLoss*N
+
+      if goal
+        h2 Final Goals:
+        h3 id: #{goal.id}
+        h3 bw: #{goal.bw}
+        h3 bf: #{goal.bf}
+        h3 endDate: #{goal.endDate}
+        h3 FK: #{goal.journeyId}
+        br
+
+      if stats
+        h2 Stats calculos:
+        h3 days: #{stats.days}
+        h3 endBF: #{stats.endBF}
+        h3 endBF %: #{stats.endBFPercentage}
+        h3 Delta BW: #{stats.deltaWeight}
+        h3 Perdida por semana (kg): #{stats.weeklyLoss}
+        h3 Deficit por semana (kcal): #{stats.weeklyDeficit}
+        h3 Perdida diario (kg): #{stats.dailyLoss}
+
+      else 
+        h3.text-primary.mb-4 Prueba foreign key Goals:     
+        form(action='/newgoal', method='POST')
+          label bw:
+          br
+          input(type="text", placeholder="Ingrese el bw", required=true, name='bw', value='')
+          br
+          label bf:
+          br
+          input(type="number", placeholder="Ingrese su bf", required=true, name='bf', value='')
+          br
+          label end date
+          br
+          input(type="date", placeholder="Ingrese su BF %", required=true, name='endDate', value='')
+          br
+          label Foreign key:
+          br
+          input(type="number", placeholder="foreign key", required=true, name='journeyId', value=`${journey.id}`)
+          input(type="submit", value="Submit")
+
+
+
+    footer
+      script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js")     

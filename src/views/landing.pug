@@ -2,7 +2,7 @@ doctype html
 html(lang='en')
     header
       meta(charset="utf-8")
-      title Compra Facil
+      title Cutting Weigth
       meta(content="width=device-width, initial-scale=1.0", name="viewport")
       meta(content="Free HTML Templates", name="keywords")
       meta(content="Free HTML Templates", name="description")
@@ -13,7 +13,7 @@ html(lang='en')
       link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
       link(href="https://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600,700,800&display=swap", rel="stylesheet")
     body
-      h1.text-primary.mb-4 Inicia Sesión o Registrate!
+      h1.text-primary.mb-4 Crear un nuevo Journey:
 
       form(action='/newjourney', method='POST')
         label Nombre del Journey:
@@ -32,6 +32,11 @@ html(lang='en')
         br
         input(type="date", placeholder="Ingrese fecha de inicio", required=true, name='startDate', value='')
         input(type="submit", value="Submit")
+
+      h1.text-primary.mb-4 Seleccionar un Journey creado:
+      each journey in journeys
+        ul
+          a(href=`/journeys/${journey.id}`) #{journey.journeyName}
 
 
     footer
