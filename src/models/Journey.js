@@ -35,5 +35,6 @@ DailyProgress.belongsTo(Journey, {
 
 Journey.hasOne(Goal, {
 	foreignKey: 'journeyId',
-	target: 'id'
 })
+
+Goal.belongsTo(Journey)
