@@ -60,10 +60,10 @@ export const goalDailyWeight = (journey, goal, days, dailyProgress) => {
 	const deltaW = deltaWeight(journey.bodyWeight, goal.bw);
 	const dailyL = dailyLoss(deltaW, days)
 	const quantityDays = dailyProgress.length;
-	if (quantityDays == false) { // Esto va a tirar error cuando este vacio DailyProgress Table.
+	if (quantityDays == false) { // Primera iteracion quantityDays == 0 == false
 		return 0
 	}
-	const goalDailyWeight = Math.round( (initialWeight - dailyL*quantityDays)*10) / 10;
+	const goalDailyWeight = Math.round( (initialWeight - dailyL*quantityDays)*100) / 100;
 	console.log("goalDailyWeight: " + goalDailyWeight);
 	return goalDailyWeight
 };
