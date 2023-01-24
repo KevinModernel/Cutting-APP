@@ -37,4 +37,6 @@ Journey.hasOne(Goal, {
 	foreignKey: 'journeyId',
 })
 
-Goal.belongsTo(Journey)
+Goal.belongsTo(Journey, {
+	foreignKey: 'journeyId',
+})
