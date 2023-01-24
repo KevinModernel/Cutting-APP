@@ -1,7 +1,7 @@
 import {Journey} from '../models/Journey.js'
 import {Goal} from '../models/Goal.js'
 import { DailyProgress } from '../models/DailyProgress.js'
-import { days, dailyVariation, goalDailyWeight } from '../services/calcs.js'
+import { days, dailyVariation, goalDailyWeight, dailyLoss } from '../services/calcs.js'
 
 export const show_landing = async (req, res) => {
 	try {
@@ -10,7 +10,6 @@ export const show_landing = async (req, res) => {
 	} catch (e) {
 		console.log(e);
 	};
-	
 };
 
 export const create_journey = async (req, res) => {
@@ -59,9 +58,35 @@ export const show_journey = async (req, res) => {
 			console.log(e);
 		}
 
+		// Gets today date and rest journey.endDate to get the days until end of journey
+		let today = new Date();
+		let dd = String(today.getDate()).padStart(2, '0');
+		let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+		let yyyy = today.getFullYear();
+		today = yyyy + '-' + mm + '-' + dd;
+		console.log(today)
+		goal.endDate = '2023-01-30';
+		console.log(goal.endDate);
 
+		let daysUntilEnd = ( Date.parse(goal.endDate) - Date.parse(today) ) / (8.64*10**7);
+		console.log(daysUntilEnd);
+		// Got it.
 
-		res.render('journey', { journey, goal, dailyProgress });
+		// Gets perdida diario objetivo.
+		let deltaWeight = journey.bodyWeight - goal.bw;
+		console.log(deltaWeight);
+		let days = ( Date.parse(goal.endDate) - Date.parse(journey.startDate) ) / (8.64*10**7);
+		console.log(days) 
+		let dailyDelta = dailyLoss(deltaWeight, days);
+		console.log(dailyDelta);
+		// Got it.
+
+		let aditionalData = {
+			daysUntilEnd,
+			dailyDelta,
+		}
+
+		res.render('journey', { journey, goal, dailyProgress, aditionalData });
 
 	} catch (e) {
 		console.log(e);
