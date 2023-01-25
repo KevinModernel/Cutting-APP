@@ -2,33 +2,90 @@ doctype html
 html(lang='en')
     header
       meta(charset="utf-8")
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
       title Cutting Weigth
+      style.
+        body { 
+          display: grid;
+          grid-template-areas: 
+            "header header"
+            "nav article"
+            "ads article"
+            "ads footer";
+          grid-template-rows: 450px 1fr 300px 5000px;  
+          grid-template-columns: 0%;
+          grid-row-gap: 10px;
+          grid-column-gap: 10px;
+          height: 100vh;
+          margin: 0;
+          }  
+        header, footer, article, nav, div {
+          padding: 0.3em;
+          background: #1E1E1E;
+          }
+        #pageHeader {
+          grid-area: header;
+          }
+        #pageFooter {
+          grid-area: footer;
+          }
+        #mainArticle { 
+          grid-area: article;      
+          }
+        #mainNav { 
+          grid-area: nav; 
+          }
+        #siteAds { 
+          grid-area: ads; 
+          } 
+        /* Stack the layout on small devices/viewports. */
+        @media all and (max-width: 575px) {
+          body { 
+            grid-template-areas: 
+              "header"
+              "article"
+              "ads"
+              "nav"
+              "footer";
+            grid-template-rows: 80px 1fr 70px 1fr 70px;  
+            grid-template-columns: 1fr;
+         }
+        }
+        #outer {
+          width:100%;
+          display: flex;
+          justify-content: center;
+        }
+      
       meta(content="width=device-width, initial-scale=1.0", name="viewport")
-    body
-      h1.text-primary.mb-4 Crear un nuevo Journey:
-
-      form(action='/newjourney', method='POST')
-        label Nombre del Journey:
-        br
-        input(type="text", placeholder="Ingrese el nombre", required=true, name='journeyName', value='')
-        br
-        label Peso Corporal:
-        br
-        input(type="text", placeholder="Ingrese su BW", required=true, name='bodyWeight', value='')
-        br
-        label Porcentaje de grasa corporal:
-        br
-        input(type="number", placeholder="Ingrese su BF %", required=true, name='bodyFat', value='')
-        br
-        label Fecha de Inicio:
-        br
-        input(type="date", placeholder="Ingrese fecha de inicio", required=true, name='startDate', value='')
-        input(type="submit", value="Submit")
-
-      h1.text-primary.mb-4 Seleccionar un Journey creado:
+    body(style="background-color:black")
+    header#pageHeader
+      if journeys
+        h1.text-center(style="color:#C38FFF") Crear Una Nueva Etapa:
+        form.text-center(action='/newjourney', method='POST')
+          h5(style="color:#bebebe") Nombre de la Etapa:
+          input.text-center(type="text", placeholder="Ingrese el nombre", required=true, name='journeyName', value='')
+          br
+          br
+          h5(style="color:#bebebe") Peso Corporal Inicial:
+          input.text-center(type="text", placeholder="Ingrese su Peso Corporal", required=true, name='bodyWeight', value='')
+          br
+          br
+          h5(style="color:#bebebe") % de Grasa Corporal Actual:
+          input.text-center(type="number", placeholder="Ingrese su % de Grasa", required=true, name='bodyFat', value='')
+          br
+          br
+          h5(style="color:#bebebe") Fecha de Inicio:
+          input.text-center(type="date", placeholder="Ingrese fecha de inicio", required=true, name='startDate', value='')
+          br
+          br
+          button.btn.btn-outline-light(style="color:#bebebe")(type="submit") Cargar
+    article#mainArticle
+      h1.text-center(style="color:#C38FFF") Lista de Etapas Creadas:
       each journey in journeys
-        ul
-          a(href=`/journeys/${journey.id}`) #{journey.journeyName}
+        ul.text-center(style="color:#bebebe")
+          a(href=`/journeys/${journey.id}` style="color:#bebebe") #{journey.journeyName}
+            
 
     footer
       script(src="https://code.jquery.com/jquery-3.4.1.min.js")

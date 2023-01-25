@@ -12,7 +12,7 @@ html(lang='en')
             "nav article"
             "ads article"
             "ads footer";
-          grid-template-rows: 80px 15fr 200px 5000px;  
+          grid-template-rows: 80px 15fr 140px 5000px;  
           grid-template-columns: 25% 3fr;
           grid-row-gap: 10px;
           grid-column-gap: 10px;
@@ -21,7 +21,7 @@ html(lang='en')
           }  
         header, footer, article, nav, div {
           padding: 0.3em;
-          background: #111111;
+          background: #1E1E1E;
           }
         #pageHeader {
           grid-area: header;
@@ -60,32 +60,32 @@ html(lang='en')
       meta(content="width=device-width, initial-scale=1.0", name="viewport")    
     body(style="background-color:black")
       header#pageHeader
-        h1.text-center.mb-4(style="color:#2069e0") Panel de Journey: #{journey.journeyName}
+        h1.text-center.mb-4(style="color:#C38FFF;font-size: 46px") Panel de Etapa: #{journey.journeyName}
       article#mainArticle
-        h1.text-center.mb-4(style="color:#2069e0") Gráfico Seguimiento Diario:
-        #tester(style="width:1000px;height:250px;")   
+        h1.text-center.mb-4(style="color:#C38FFF;font-size: 32px") Gráfico Seguimiento Diario:
+        #tester(style="width:1000px;height:180px;")   
       nav#mainNav
-        h2.text-center(style="color:#2069e0") Ingresar Fecha / Peso:
+        h2.text-center(style="color:#C38FFF;font-size: 32px") Ingresar Fecha / Peso:
         .mx-auto(style="width: 100%; max-width: 300px;")
           .input-group
             .container.text-center        
               form#form1.form(action='/newmeasure', method='POST')
                   h5(style="color:#bebebe") Fecha:
-                  input(type="date", required=true, name='date', value='')
+                  input.text-center(type="date", required=true, name='date', value='')
                   br
                   br
                   h5(style="color:#bebebe") Peso:
-                  input(type="text", placeholder="Ingresar peso", aria-label="ingresar peso" ,required=true, name='weight', value='')
+                  input.text-center(type="text", placeholder="Ingresar peso", aria-label="ingresar peso" ,required=true, name='weight', value='')
                   br
                   input(type="hidden", placeholder="foreign key", required=true, name='journeyId', value=`${journey.id}`)        
                   br
-                  input(type="submit", value="Cargar")
+                  button.btn.btn-outline-light(style="color:#bebebe")(type="submit") Cargar
       #siteAds
         if dailyProgress
-          h2(style="color:#2069e0") Seguimiento Diario:
+          h2(style="color:#C38FFF;font-size: 32px") Seguimiento Diario:
           table.table(id='myTable')
             thead
-              tr(style="color:#bebebe")
+              tr.text-center(style="color:#bebebe")
                 th Fecha
                 th Peso
                 th Delta Diario
@@ -93,51 +93,38 @@ html(lang='en')
                 th Eliminar
             tbody
               each day in dailyProgress
-                tr(style="color:#bebebe")
+                tr.text-center(style="color:#bebebe")
                   td.X #{day.date}
                   td.Y #{day.weight}
                   td #{day.dailyVariation}
                   td.YSecond #{day.goalWeight}
                   td
-                    form(action=`/deleteday/${day.id}`, method='POST')
-                      button(type='submit') ✘
+                    form(action=`/deleteday/${day.journeyId}/${day.id}`, method='POST')
+                      button(type='submit' style="background-color:#1E1E1E;color:#bebebe") ✘
       footer#pageFooter
         if goal
-          h2.text-center(style="color:#2069e0") Final Goals:
+          h2.text-center(style="color:#C38FFF;font-size: 32px") Valores Objetivos / Iniciales:
           table.table
             thead
-              tr(style="color:#bebebe")
-                th Peso Final [kg]
+              tr.text-center(style="color:#bebebe")
+                th Peso [kg]
                 th Grasa Corporal (%)
-                th Fecha Final
+                th Fecha
                 th Días Restantes
                 th Pérdida Diaria Objetivo [kg]
             tbody
-              tr(style="color:#bebebe")
+              tr.text-center(style="color:#bebebe")
                 td #{goal.bw}
                 td #{goal.bf}
                 td #{goal.endDate}
                 td #{aditionalData.daysUntilEnd}
                 td #{aditionalData.dailyDelta}
-        else 
-          h3.text-primary.mb-4 Cargar Goals para este Journey:     
-          form(action='/newgoal', method='POST')
-            label bw:
-            br
-            input(type="text", placeholder="Ingrese el bw", required=true, name='bw', value='')
-            br
-            label bf:
-            br
-            input(type="number", placeholder="Ingrese su bf", required=true, name='bf', value='')
-            br
-            label end date
-            br
-            input(type="date", placeholder="Ingrese su BF %", required=true, name='endDate', value='')
-            br
-            label Foreign key:
-            br
-            input(type="number", placeholder="foreign key", required=true, name='journeyId', value=`${journey.id}`)
-            input(type="submit", value="Submit")
+              tr.text-center(style="color:#bebebe")
+                td #{journey.bodyWeight}
+                td #{journey.bodyFat}
+                td #{journey.startDate}
+                td -
+                td -
     footer
       script(src="https://code.jquery.com/jquery-3.4.1.min.js")
       script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js")   
@@ -178,14 +165,14 @@ html(lang='en')
           let secondPlotTrace = {
             x,
             y: ySecond,
-            name: 'Peso Objetivo'
+            name: 'Peso Objetivo',
           }
 
           let layout = {
-            height: 400,
+            height: 350,
             width: 1000,
             plot_bgcolor:"black",
-            paper_bgcolor:"#111111",
+            paper_bgcolor:"#1E1E1E",
             xaxis: {
               showgrid: true,
               zeroline: true,
@@ -211,7 +198,6 @@ html(lang='en')
               linewidth: 6
             }
           };
-
 
           let plotData = [firstPlotTrace, secondPlotTrace];
 
