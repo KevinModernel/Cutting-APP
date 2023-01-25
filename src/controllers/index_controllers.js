@@ -178,14 +178,14 @@ export const edit_day = async (req, res) => {
 
 export const delete_day = async (req, res) => {
 	try {
-		console.log("controller delete day")
-		const { id } = req.params; // Atento es el ID del day, no la FK. Vos queres editar cada day.
+		const journeyid= req.params.journeyid;
+		const id = req.params.id; // ID del day, no la FK. Vos queres eliminar cada day.
 		await DailyProgress.destroy({
 			where: {
 				id,
 			}
 		});
-		res.redirect(`/journeys/1`); // Pasar mas de un route parameter? asi redirecciono bien.s
+		res.redirect(`/journeys/${journeyid}`);
 	} catch (error) {
 			return res.status(500).json({ message: error.message });
 	};
