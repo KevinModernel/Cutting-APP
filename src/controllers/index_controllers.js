@@ -6,7 +6,7 @@ import { days, dailyVariation, goalDailyWeight, dailyLoss } from '../services/ca
 export const show_landing = async (req, res) => {
 	try {
 		const journeys = await Journey.findAll();
-		res.render('landing', { journeys });
+		res.render('landing', { journeys } );
 	} catch (e) {
 		console.log(e);
 	};
@@ -22,13 +22,20 @@ export const create_journey = async (req, res) => {
 			bodyWeight,
 			bodyFat,
 			startDate,
-			});	
+			});
 
-		res.redirect('/');
+		res.redirect(`/goal/${newJourney.id}`);
 
 	} catch (error) {
 		return res.status(500).json({message: error.message});
 	};
+};
+
+export const show_createGoal = async (req, res) => {
+	const { id } = req.params;
+	const journey = await Journey.findByPk(id)
+
+	res.render('goal', {journey});
 };
 
 export const show_journey = async (req, res) => {
@@ -65,7 +72,6 @@ export const show_journey = async (req, res) => {
 		let yyyy = today.getFullYear();
 		today = yyyy + '-' + mm + '-' + dd;
 		console.log(today)
-		goal.endDate = '2023-01-30';
 		console.log(goal.endDate);
 
 		let daysUntilEnd = ( Date.parse(goal.endDate) - Date.parse(today) ) / (8.64*10**7);
@@ -179,7 +185,7 @@ export const delete_day = async (req, res) => {
 				id,
 			}
 		});
-		res.redirect(`/journeys/1`); // Refactorizar cuando saques opcion de journeys
+		res.redirect(`/journeys/1`); // Pasar mas de un route parameter? asi redirecciono bien.s
 	} catch (error) {
 			return res.status(500).json({ message: error.message });
 	};
