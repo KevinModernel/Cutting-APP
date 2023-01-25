@@ -61,7 +61,7 @@ export const goalDailyWeight = (journey, goal, days, dailyProgress) => {
 	const dailyL = dailyLoss(deltaW, days)
 	const quantityDays = dailyProgress.length;
 	if (quantityDays == false) { // Primera iteracion quantityDays == 0 == false
-		return 0
+		return journey.bodyWeight
 	}
 	const goalDailyWeight = Math.round( (initialWeight - dailyL*quantityDays)*100) / 100;
 	console.log("goalDailyWeight: " + goalDailyWeight);
