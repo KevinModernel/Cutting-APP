@@ -7,7 +7,7 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(methodOverride("_method"));
-app.use(express.urlencoded({ extended: false })); // Puse este y ahi si pasaron los datos del form al post.
+app.use(express.urlencoded({ extended: false }));
 
 app.use('/', index_router);
 // View engine

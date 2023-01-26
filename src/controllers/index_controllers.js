@@ -17,7 +17,7 @@ export const create_journey = async (req, res) => {
 	const {journeyName, bodyWeight, bodyFat, startDate} = req.body;
 
 	try {
-		const newJourney = await Journey.create({ //newProject: objeto que representa la fila que se ha guardado en la tabla
+		const newJourney = await Journey.create({
 			journeyName,
 			bodyWeight,
 			bodyFat,
@@ -71,21 +71,12 @@ export const show_journey = async (req, res) => {
 		let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
 		let yyyy = today.getFullYear();
 		today = yyyy + '-' + mm + '-' + dd;
-		console.log(today)
-		console.log(goal.endDate);
-
 		let daysUntilEnd = ( Date.parse(goal.endDate) - Date.parse(today) ) / (8.64*10**7);
-		console.log(daysUntilEnd);
-		// Got it.
 
-		// Gets perdida diario objetivo.
+		// Gets daily weight loss goal.
 		let deltaWeight = journey.bodyWeight - goal.bw;
-		console.log(deltaWeight);
-		let days = ( Date.parse(goal.endDate) - Date.parse(journey.startDate) ) / (8.64*10**7);
-		console.log(days) 
+		let days = ( Date.parse(goal.endDate) - Date.parse(journey.startDate) ) / (8.64*10**7); 
 		let dailyDelta = dailyLoss(deltaWeight, days);
-		console.log(dailyDelta);
-		// Got it.
 
 		let aditionalData = {
 			daysUntilEnd,
@@ -141,11 +132,11 @@ export const store_measure = async (req, res) => {
 		}
 	});
 
-	const Ddays = days(journey.startDate, goal.endDate); // Ok
+	const Ddays = days(journey.startDate, goal.endDate);
 	const DdailyVariation = dailyVariation(dailyProgress, weight);
 	const DgoalDailyWeight = goalDailyWeight(journey, goal, Ddays, dailyProgress)
 
-	try { // Stores a new day in DB (row in table)
+	try { // Stores a new day in DB 
 		const newDay = await DailyProgress.create({
 			date,
 			days: Ddays,
@@ -163,7 +154,7 @@ export const store_measure = async (req, res) => {
 
 export const edit_day = async (req, res) => {
 	try {
-		const { id } = req.params; // Atento es el ID del day, no la FK. Vos queres editar cada day.
+		const { id } = req.params; // day ID, not FK. you want to modify each day.
 		const {date, weight} = req.body;
 
 		const day = await DailyProgress.findByPk(id);
@@ -179,7 +170,7 @@ export const edit_day = async (req, res) => {
 export const delete_day = async (req, res) => {
 	try {
 		const journeyid= req.params.journeyid;
-		const id = req.params.id; // ID del day, no la FK. Vos queres eliminar cada day.
+		const id = req.params.id; // day ID, not FK. you want to modify each day.
 		await DailyProgress.destroy({
 			where: {
 				id,
