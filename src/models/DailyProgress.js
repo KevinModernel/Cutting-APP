@@ -27,4 +27,4 @@ export const DailyProgress = sequelize.define('dailyProgresses', {
 		type: DataTypes.FLOAT,
 		allowNull: false,
 	},
-})
+}, {timestamps: false})
