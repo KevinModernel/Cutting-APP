@@ -17,7 +17,7 @@ export const create_goal = async (req, res) => {
 			journeyId,
 		});
 
-		res.redirect(`/journeys/${journeyId}`);
+		res.redirect(`/panel/journeys/${journeyId}`);
 	} catch (error) {
 		res.status(500).json({ message: error.message });
 	}

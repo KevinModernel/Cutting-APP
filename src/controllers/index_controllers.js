@@ -122,7 +122,7 @@ export const store_measure = async (req, res) => {
 			journeyId,
 		});
 
-		res.redirect(`/journeys/${journeyId}`);
+		res.redirect(`/panel/journeys/${journeyId}`);
 	} catch (e) {
 		console.log(e);
 	}
@@ -152,7 +152,7 @@ export const delete_day = async (req, res) => {
 				id,
 			}
 		});
-		res.redirect(`/journeys/${journeyid}`);
+		res.redirect(`/panel/journeys/${journeyid}`);
 	} catch (error) {
 			return res.status(500).json({ message: error.message });
 	};
