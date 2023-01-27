@@ -69,7 +69,7 @@ html(lang='en')
         .mx-auto(style="width: 100%; max-width: 300px;")
           .input-group
             .container.text-center        
-              form#form1.form(action='/newmeasure', method='POST')
+              form#form1.form(action='/panel/newmeasure', method='POST')
                   h5(style="color:#bebebe") Fecha:
                   input.text-center(type="date", required=true, name='date', value='')
                   br
@@ -99,7 +99,7 @@ html(lang='en')
                   td #{day.dailyVariation}
                   td.YSecond #{day.goalWeight}
                   td
-                    form(action=`/deleteday/${day.journeyId}/${day.id}`, method='POST')
+                    form(action=`/panel/deleteday/${day.journeyId}/${day.id}`, method='POST')
                       button(type='submit' style="background-color:#1E1E1E;color:#bebebe") ✘
       footer#pageFooter
         if goal
