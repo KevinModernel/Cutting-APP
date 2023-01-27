@@ -63,7 +63,7 @@ html(lang='en')
         h1.text-center(style="color:#C38FFF") Cargar Objetivos de la Etapa:     
 
       article#mainArticle
-          form.text-center(action='/newgoal', method='POST')
+          form.text-center(action='/goals/newgoal', method='POST')
             h5(style="color:#bebebe") Peso Objetivo [kg]:
             input.text-center(type="text", placeholder="Ingrese Peso Obj.", required=true, name='bw', value='')
             br
@@ -76,7 +76,7 @@ html(lang='en')
             input.text-center(type="date", placeholder="Ingrese su BF %", required=true, name='endDate', value='')
             br
             br
-            input(placeholder="foreign key", required=true, type="hidden", name='journeyId', value=`${journey.id}`)
+            input(placeholder="foreign key", required=true, type="hidden", name='journeyId', value=`${id}`)
             button.btn.btn-outline-light(style="color:#bebebe")(type="submit") Cargar
     footer
       script(src="https://code.jquery.com/jquery-3.4.1.min.js")

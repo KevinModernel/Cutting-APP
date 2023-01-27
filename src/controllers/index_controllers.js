@@ -24,18 +24,11 @@ export const create_journey = async (req, res) => {
 			startDate,
 			});
 
-		res.redirect(`/goal/${newJourney.id}`);
+		res.redirect(`/goals/goal/${newJourney.id}`);
 
 	} catch (error) {
 		return res.status(500).json({message: error.message});
 	};
-};
-
-export const show_createGoal = async (req, res) => {
-	const { id } = req.params;
-	const journey = await Journey.findByPk(id)
-
-	res.render('goal', {journey});
 };
 
 export const show_journey = async (req, res) => {
@@ -88,23 +81,6 @@ export const show_journey = async (req, res) => {
 	} catch (e) {
 		console.log(e);
 	};
-};
-
-export const create_goal = async (req, res) => {
-	const {bw, bf, endDate, journeyId} = req.body;
-
-	try { // Stores new Goal in the DB.
-		const newGoal = await Goal.create({
-			bw,
-			bf,
-			endDate,
-			journeyId,
-		});
-
-		res.redirect(`/journeys/${journeyId}`);
-	} catch (e) {
-		console.log(e);
-	}
 };
 
 export const store_measure = async (req, res) => {
