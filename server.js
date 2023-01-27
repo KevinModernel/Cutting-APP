@@ -4,6 +4,8 @@ import app from './app.js'
 import {Journey} from './src/models/Journey.js'
 import {Goal} from './src/models/Goal.js'
 import {DailyProgress} from './src/models/DailyProgress.js'
+import dotenv from 'dotenv'
+dotenv.config();
 
 // innitialize Express Server
 const PORT = process.env.PORT || 3000;
@@ -15,13 +17,11 @@ try{
 };
 
 // Model Sync
-async function main() {
+(async function () {
 	try{
-		await sequelize.sync({force: false});
-		// await sequelize.authenticate(); // DB Ok
+		await sequelize.sync({force: false}); // Set to true and it'll delete all stored data. 
 		console.log('Connection has been established successfully.');
 	} catch (e) {
 		console.error('unable to connecto to the DB: ', e);
 	}
-};
-main();
+}());
