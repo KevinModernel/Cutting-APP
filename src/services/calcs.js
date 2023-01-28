@@ -1,3 +1,13 @@
+export const getTodayDate = () => {
+	let today = new Date();
+	let dd = String(today.getDate()).padStart(2, '0');
+	let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+	let yyyy = today.getFullYear();
+	today = yyyy + '-' + mm + '-' + dd;
+	return today;
+};
+
+
 export const subtractDays = (startDate, endDate) => {
 	const days = (Date.parse(endDate)- Date.parse(startDate))/(8.64*10**7);
 	return days
