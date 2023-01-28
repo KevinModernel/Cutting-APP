@@ -10,14 +10,18 @@ export const Goal = sequelize.define('goals', {
 	},
 	bw: {
 		type: DataTypes.FLOAT,
-		allowNull: false
+		allowNull: false,
 	},
 	bf: {
 		type: DataTypes.FLOAT,
-		allowNull: false
-	},	
+		allowNull: false,
+	},
+	dailyLoss: {
+		type: DataTypes.FLOAT,
+		allowNull: false,
+	},
 	endDate: {
 		type: DataTypes.DATEONLY,
-		allowNull: false
+		allowNull: false,
 	},
 }, {timestamps: false})
