@@ -65,11 +65,7 @@ html(lang='en')
       article#mainArticle
           form.text-center(action='/goals/newgoal', method='POST')
             h5(style="color:#bebebe") Peso Objetivo [kg]:
-            input.text-center(type="text", placeholder="Ingrese Peso Obj.", required=true, name='bw', value='')
-            br
-            br
-            h5(style="color:#bebebe") Grasa Corporal Objetivo [%]:
-            input.text-center(type="number", placeholder="Ingrese % Obj.", required=true, name='bf', value='')
+            input.text-center(type="text", placeholder="Ingrese Peso Obj.", required=true, name='endBodyWeight', value='')
             br
             br
             h5(style="color:#bebebe") Fecha Final:
