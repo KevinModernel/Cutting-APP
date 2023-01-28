@@ -1,7 +1,7 @@
 import { Journey } from '../models/Journey.js'
 import { Goal } from '../models/Goal.js'
 import { DailyProgress } from '../models/DailyProgress.js'
-import { days, dailyVariation, goalDailyWeight, dailyLoss } from '../services/calcs.js'
+import { subtractDays, calculateDailyVariation, CalculateDailyGoalWeight, subtractWeights, calculateDailyLoss } from '../services/calcs.js'
 
 export const show_journey = async (req, res) => {
 	try {
@@ -41,7 +41,7 @@ export const show_journey = async (req, res) => {
 		// Gets daily weight loss goal.
 		let deltaWeight = journey.bodyWeight - goal.bw;
 		let days = ( Date.parse(goal.endDate) - Date.parse(journey.startDate) ) / (8.64*10**7); 
-		let dailyDelta = dailyLoss(deltaWeight, days);
+		let dailyDelta = calculateDailyLoss(deltaWeight, days);
 
 		let aditionalData = {
 			daysUntilEnd,
@@ -68,6 +68,7 @@ export const store_measure = async (req, res) => {
 		} 
 	);
 
+
 	const journey = await Journey.findOne({
 		where: {
 			id: journeyId.toString()
@@ -80,17 +81,33 @@ export const store_measure = async (req, res) => {
 		}
 	});
 
-	const Ddays = days(journey.startDate, goal.endDate);
-	const DdailyVariation = dailyVariation(dailyProgress, weight);
-	const DgoalDailyWeight = goalDailyWeight(journey, goal, Ddays, dailyProgress)
+	let dayBeforeProgress = dailyProgress.slice(-1);
+	let weightDayBefore;
+	if (dayBeforeProgress == false) { // When dailyProgress is empty, dayBeforeProgress == [] == false.
+		weightDayBefore = weight; // So that it'll return dailyVariation zero.
+	} else { 
+		weightDayBefore = dayBeforeProgress[0].weight;
+	};
+
+	const days = subtractDays(journey.startDate, goal.endDate);
+	const dailyVariation = calculateDailyVariation(weightDayBefore, weight);
+
+	const startBodyWeight = journey.bodyWeight;
+
+	const deltaWeight = journey.bodyWeight - goal.bw;
+	const dailyLoss = calculateDailyLoss(deltaWeight, days)
+	const daysPassed = dailyProgress.length;
+
+
+	const dailyGoalWeight = CalculateDailyGoalWeight(startBodyWeight, dailyLoss, daysPassed);
 
 	try { // Stores a new day in DB 
 		const newDay = await DailyProgress.create({
 			date,
-			days: Ddays,
+			days, // I think it´s not necessary, check it.
 			weight,
-			dailyVariation: DdailyVariation,
-			goalWeight: DgoalDailyWeight,
+			dailyVariation,
+			goalWeight: dailyGoalWeight,
 			journeyId,
 		});
 
